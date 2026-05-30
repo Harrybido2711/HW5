@@ -81,7 +81,7 @@ justify this hypothesis in one or two sentences based on the some concepts from
 the class you find interesting, or based on some resource(s) you found online.
 Try to make this more ambitious than "RL method A will outperform RL method B";
 ideally, your hypothesis should be able to have some implications for RL
-applications more broadly, outside of just this dataset.
+applications more broadly, outside of just this environment.
 
 3. Run experiments to test that hypothesis and share your results. Condense
 your findings into a 1-2 sentence takeaway that highlights what you've learned

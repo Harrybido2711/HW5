@@ -212,7 +212,7 @@ page covering the following points:
 ### Climate Change
 - https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers
 - https://news.mit.edu/2025/explained-generative-ai-environmental-impact-0117
-- https://montrealethics.ai/toward-responsible-ai-use-considerations-for-sustainability-impact-assessment/#de32bfb7-bd4b-4301-8380-fb1535b382a6
+- https://montrealethics.ai/toward-responsible-ai-use-considerations-for-sustainability-impact-assessment/
 
 ### Military and Policing
 - http://turing.library.northwestern.edu/login?url=https://www.proquest.com/newspapers/could-polk-countys-new-online-surveillance-tool/docview/3054655279/se-2?accountid=12861
