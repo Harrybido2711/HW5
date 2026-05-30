@@ -1,0 +1,109 @@
+{
+    "test_imports": {
+        "weight": "required",
+        "depends": []
+    },
+    "test_setup": {
+        "weight": "required",
+        "depends": []
+    },
+    "test_np_suggestions": {
+        "weight": 0,
+        "depends": []
+    },
+
+    "test_euclidean_distances": {
+      "weight": 0.5,
+      "depends": []
+    },
+    "test_manhattan_distances": {
+      "weight": 0.5,
+      "depends": []
+    },
+    "test_cosine_distances": {
+      "weight": 0.5,
+      "depends": []
+    },
+
+    "test_knn_k_is_1": {
+      "weight": 1,
+      "depends": ["test_euclidean_distances",
+                  "test_manhattan_distances",
+                  "test_cosine_distances"]
+    },
+    "test_knn_k_is_big": {
+      "weight": 1,
+      "depends": ["test_euclidean_distances",
+                  "test_manhattan_distances",
+                  "test_cosine_distances"]
+    },
+    "test_knn_aggregators": {
+      "weight": 1,
+      "depends": ["test_euclidean_distances",
+                  "test_manhattan_distances",
+                  "test_cosine_distances"]
+    },
+    "test_knn_comparisons": {
+      "weight": 1,
+      "depends": ["test_euclidean_distances",
+                  "test_manhattan_distances",
+                  "test_cosine_distances"]
+    },
+    "test_knn_regression": {
+      "weight": 2,
+      "depends": ["test_euclidean_distances",
+                  "test_manhattan_distances",
+                  "test_cosine_distances"]
+    },
+
+    "test_bandit_slots": {
+        "weight": 2,
+        "depends": []
+    },
+    "test_bandit_simple": {
+        "weight": 1,
+        "depends": []
+    },
+    "test_bandit_random_argmax": {
+        "weight": 0.5,
+        "depends": ["test_bandit_slots"]
+    },
+    "test_bandit_deterministic": {
+        "weight": 1,
+        "depends": ["test_bandit_slots"]
+    },
+    "test_bandit_frozen_lake": {
+        "weight": 1,
+        "depends": [
+            "test_bandit_slots",
+            "test_bandit_random_argmax"
+        ]
+    },
+
+    "test_q_learning_slots": {
+        "weight": 2,
+        "depends": []
+    },
+    "test_q_learning_simple": {
+        "weight": 1,
+        "depends": []
+    },
+    "test_q_learning_random_argmax": {
+        "weight": 0.5,
+        "depends": ["test_q_learning_slots"]
+    },
+    "test_q_learning_frozen_lake": {
+        "weight": 2,
+        "depends": [
+            "test_q_learning_slots",
+            "test_q_learning_random_argmax"
+        ]
+    },
+    "test_q_learning_deterministic": {
+        "weight": 2,
+        "depends": [
+            "test_q_learning_slots",
+            "test_q_learning_random_argmax"
+        ]
+    }
+}
