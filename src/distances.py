@@ -15,7 +15,13 @@ def euclidean_distances(X, Y):
     Returns:
         D {np.ndarray}: MxN matrix with Euclidean distances between rows of X and rows of Y.
     """
-    raise NotImplementedError
+    # initialize matrix D with all zeros
+    M, N = X.shape[0], Y.shape[0]
+    D = np.zeros((M, N))
+    for i in range(M):
+        for j in range(N):
+            D[i, j] = np.linalg.norm(X[i] - Y[j]) # direct calculation of L2
+    return D
 
 
 def manhattan_distances(X, Y):
@@ -32,7 +38,13 @@ def manhattan_distances(X, Y):
     Returns:
         D {np.ndarray}: MxN matrix with Manhattan distances between rows of X and rows of Y.
     """
-    raise NotImplementedError
+    # similar to euclidean distances
+    M, N = X.shape[0], Y.shape[0]
+    D = np.zeros((M, N))
+    for i in range(M):
+        for j in range(N):
+            D[i, j] = np.linalg.norm(X[i] - Y[j], ord = 1) # direct calculation of L1
+    return D
 
 
 def cosine_distances(X, Y):
@@ -50,4 +62,11 @@ def cosine_distances(X, Y):
     Returns:
         D {np.ndarray}: MxN matrix with Cosine distances between rows of X and rows of Y.
     """
-    raise NotImplementedError
+    M, N = X.shape[0], Y.shape[0]
+    D = np.zeros((M, N))
+    for i in range(M):
+        for j in range(N):
+            dot_product = np.dot(X[i], Y[j])
+            norms_multiple = np.linalg.norm(X[i]) * np.linalg.norm(Y[j]) 
+            D[i, j] = 1 - np.clip(dot_product / norms_multiple, -1, 1) # revise because of floating point
+    return D
