@@ -94,8 +94,7 @@ class QLearning:
 
 
         # this logic is very similar to what we hae in multi-armed bandits
-        # but with three revisions
-        # 
+        # but with three revisions, showed in the procedures
         current_state, _ = env.reset()
         s = int(np.ceil(steps / num_bins))
 
@@ -171,4 +170,20 @@ class QLearning:
 
         # reset environment before your first action
         current_state, _ = env.reset()
-        raise NotImplementedError
+        
+        # this logic is very similar to what we hae in multi-armed bandits
+        
+        done = False # measures completion
+        
+        while not done:
+            # no exploration is needed
+            best = np.where(state_action_values[current_state] == np.max(state_action_values[current_state]))[0]
+            action = src.random.choice(best) # avoid tie
+            next_state, reward, terminated, truncated, _ = env.step(action)
+            states.append(next_state)
+            actions.append(action)
+            rewards.append(reward)
+            current_state = next_state
+            done = terminated or truncated
+        return np.array(states), np.array(actions), np.array(rewards)
+
