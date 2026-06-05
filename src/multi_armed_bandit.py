@@ -83,11 +83,41 @@ class MultiArmedBandit:
         self.N = np.zeros(n_actions)
         avg_rewards = np.zeros([num_bins])
         all_rewards = []
-
         # reset environment before your first action
         env.reset()
 
-        raise NotImplementedError
+        #save progress of reward
+        s = int(np.ceil(steps / num_bins))
+
+        for step in range(step):
+            #decision for exploration or exploitation
+            if src.random.rand() < self.epsilon:
+                # explore
+                action = src.random.choice(n_actions)
+            else:
+                # exploit
+                best = np.where(self.Q == np.max(self.Q))[0]
+                action = src.random.choice(best) # randomly choose among best tie
+
+            _, reward, terminated, truncated, _ = env.step(action)
+            self.N[action] += 1 #record of how many times selected for each option
+            self.Q[action] += (1 / self.N[action]) * (reward - self.Q[action]) # without considering alpha
+            all_rewards.append(reward)
+
+            # end of episode
+            if terminated or truncated:
+                env.reset()
+        for i in range(num_bins):
+            avg_rewards[i] = np.mean(all_rewards[i * s: min((i + 1) * s, steps)])
+
+        state_action_values = np.tile(self.Q, (n_states, 1)) #they have to take the same action
+        return state_action_values, avg_rewards
+
+
+
+
+
+
 
     def predict(self, env, state_action_values):
         """
@@ -131,4 +161,3 @@ class MultiArmedBandit:
         # reset environment before your first action
         env.reset()
 
-        raise NotImplementedError

@@ -82,7 +82,7 @@ class KNearestNeighbor():
         # calculate the distance matrix
         distances = self.distance(features, self.X_train)
         # argsort return the index of the values from small to large, we take first k element each row
-        sorted_indices = np.argsort(distances, axis=1)[:, :self.n_neighbors]
+        sorted_indices = np.argsort(distances, axis=1)[:, :self.n_neighbors]  # shape [n_test, k]
         # change these indices to actual lables
         neighbor_labels = self.y_train[sorted_indices] # shape [n_test, k]
         # use aggregator to write the predicted labels
