@@ -92,9 +92,36 @@ class QLearning:
         avg_rewards = np.zeros([num_bins])
         all_rewards = []
 
-        current_state, _ = env.reset()
 
-        raise NotImplementedError
+        # this logic is very similar to what we hae in multi-armed bandits
+        # but with three revisions
+        # 
+        current_state, _ = env.reset()
+        s = int(np.ceil(steps / num_bins))
+
+        for step in range(steps):
+            #decision for exploration or exploitation
+            if src.random.rand() < self.epsilon:
+                # explore
+                action = src.random.choice(int(n_actions))
+            else:
+                # exploit
+                # revision 1: use current_state's Q row, not a single Q array
+                best = np.where(state_action_values[current_state] == np.max(state_action_values[current_state]))[0]
+                action = src.random.choice(best)
+            next_state, reward, terminated, truncated, _ = env.step(action)
+            # revision 2: Q update uses alpha, gamma, and next_state instead of 1/N
+            state_action_values[current_state, action] += self.alpha * (reward + self.gamma * max(state_action_values[next_state, :]) - state_action_values[current_state, action])
+            all_rewards.append(reward)
+            # revision 3: track current_state; on episode end, reset and receive new state
+            current_state = next_state
+            if terminated or truncated:
+                current_state, _ = env.reset()
+
+        for i in range(num_bins):
+            avg_rewards[i] = np.mean(all_rewards[i * s: min((i + 1) * s, steps)])
+
+        return state_action_values, avg_rewards
 
     def predict(self, env, state_action_values):
         """
