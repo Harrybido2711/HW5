@@ -89,11 +89,11 @@ class MultiArmedBandit:
         #save progress of reward
         s = int(np.ceil(steps / num_bins))
 
-        for step in range(step):
+        for step in range(steps):
             #decision for exploration or exploitation
             if src.random.rand() < self.epsilon:
                 # explore
-                action = src.random.choice(n_actions)
+                action = src.random.choice(int(n_actions))
             else:
                 # exploit
                 best = np.where(self.Q == np.max(self.Q))[0]
@@ -161,3 +161,21 @@ class MultiArmedBandit:
         # reset environment before your first action
         env.reset()
 
+        states = []
+        actions = []
+        rewards = []
+        done = False # measures completion
+        
+        while not done:
+            # no exploration is needed
+            q_values = state_action_values[0] #only first row is meaningful
+            best = np.where(q_values == np.max(q_values))[0]
+            action = src.random.choice(best) # avoid tie
+
+            state, reward, terminated, truncated, _ = env.step(action)
+            states.append(state)
+            actions.append(action)
+            rewards.append(reward)
+            done = terminated or truncated
+        return np.array(states), np.array(actions), np.array(rewards)
+             
